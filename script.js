@@ -12,15 +12,15 @@
 
 let cardcontainer = document.querySelector("#cardcontainer");
 
-
 fetch('https://jsonplaceholder.typicode.com/posts')
 .then(data => data.json())  // is in the form of unreadable blob
 .then(readableBlob => {
 
-    readableBlob.forEach(data  =>{
+    readableBlob.forEach((data, index) =>{
         
         cardcontainer.innerHTML += `
            <div class="card p-3 w-25">
+            <div class="circle bg-warning" data-index=${index} id="cross"> X </div>
                 ${data.id}
                 <div class="card-title">
                     ${data.title}
@@ -34,6 +34,15 @@ fetch('https://jsonplaceholder.typicode.com/posts')
 })
 
 
+cardcontainer.addEventListener("click", function(dets){
+    
+    if(dets.target.textContent.includes('X') && dets.target.dataset.index){
+        console.log( " :: dets.target.textContent :: ", dets.target.dataset.index);
+    }
+})
+
+//function fn(a,b){} //a,b => parameters
+//fn(4,5) // 4,5 => arguments
 
 
 // console.log(" ::: result ::: ", result);
