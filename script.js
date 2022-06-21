@@ -2,22 +2,24 @@
 //  xhr / http request 
 //  asynchronous javaScript(promises , async await)
 
-
 // promise => (reject, resolve)
 // whichever fn is asynchronous , is of type promise => (resolve) * .then(data)  , (reject) * .catch(err)
 
 // js api
 // asynchronous
 // Promise (reject, resolve) => (resolve) * .then(data)  , (reject) * .catch(err)
-
+let readable;
 let cardcontainer = document.querySelector("#cardcontainer");
 
 fetch('https://jsonplaceholder.typicode.com/posts')
 .then(data => data.json())  // is in the form of unreadable blob
 .then(readableBlob => {
+    readable = readableBlob   
+    uiMaker(readable)
+})
 
-    readableBlob.forEach((data, index) =>{
-        
+function uiMaker(arr){ 
+    arr.forEach((data, index) =>{
         cardcontainer.innerHTML += `
            <div class="card p-3 w-25">
             <div class="circle bg-warning" data-index=${index} id="cross"> X </div>
@@ -31,27 +33,26 @@ fetch('https://jsonplaceholder.typicode.com/posts')
             </div> 
         `
     })
-})
+}
 
 
+// delete
 cardcontainer.addEventListener("click", function(dets){
-    
     if(dets.target.textContent.includes('X') && dets.target.dataset.index){
-        console.log( " :: dets.target.textContent :: ", dets.target.dataset.index);
-    }
+        readable.splice(dets.target.dataset.index, 1);
+        cardcontainer.innerHTML = '';    
+        uiMaker(readable)
+    }   
 })
 
 //function fn(a,b){} //a,b => parameters
 //fn(4,5) // 4,5 => arguments
-
 
 // console.log(" ::: result ::: ", result);
 // hw. => what is synchronous and asynchronous js (behaviour) ? (Promise)
 // Callback function => are those functions they are automatically get called upon the calling of anyOther function ,(also called as anonymous functions)
 // Typescript ?
 // functionTypes *
-
-
 
 // one ,function Statement
 // function datas(){
