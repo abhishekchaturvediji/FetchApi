@@ -10,6 +10,7 @@
 // Promise (reject, resolve) => (resolve) * .then(data)  , (reject) * .catch(err)
 let readable;
 let cardcontainer = document.querySelector("#cardcontainer");
+let searchString = document.querySelector("#searchInp");
 
 fetch('https://jsonplaceholder.typicode.com/posts')
 .then(data => data.json())  // is in the form of unreadable blob
@@ -35,7 +36,6 @@ function uiMaker(arr){
     })
 }
 
-
 // delete
 cardcontainer.addEventListener("click", function(dets){
     if(dets.target.textContent.includes('X') && dets.target.dataset.index){
@@ -44,6 +44,17 @@ cardcontainer.addEventListener("click", function(dets){
         uiMaker(readable)
     }   
 })
+
+
+// Search
+searchString.addEventListener('change', (detail) =>{
+    let filteredArray = readable.filter(data => data.title.includes(detail.target.value));
+    cardcontainer.innerHTML = '';
+    readable = [...filteredArray]
+    uiMaker(readable)
+})
+
+
 
 //function fn(a,b){} //a,b => parameters
 //fn(4,5) // 4,5 => arguments
