@@ -8,9 +8,14 @@
 // js api
 // asynchronous
 // Promise (reject, resolve) => (resolve) * .then(data)  , (reject) * .catch(err)
+
 let readable;
 let cardcontainer = document.querySelector("#cardcontainer");
 let searchString = document.querySelector("#searchInp");
+let btn = document.querySelector("#btn");
+let title = document.querySelector("#title-text");
+let body = document.querySelector("#body-text");
+let add = document.querySelector("#add");
 
 fetch('https://jsonplaceholder.typicode.com/posts')
 .then(data => data.json())  // is in the form of unreadable blob
@@ -19,6 +24,7 @@ fetch('https://jsonplaceholder.typicode.com/posts')
     uiMaker(readable)
 })
 
+// (Read) read
 function uiMaker(arr){ 
     arr.forEach((data, index) =>{
         cardcontainer.innerHTML += `
@@ -36,7 +42,7 @@ function uiMaker(arr){
     })
 }
 
-// delete
+// (Update/Delete) delete
 cardcontainer.addEventListener("click", function(dets){
     if(dets.target.textContent.includes('X') && dets.target.dataset.index){
         readable.splice(dets.target.dataset.index, 1);
@@ -44,7 +50,6 @@ cardcontainer.addEventListener("click", function(dets){
         uiMaker(readable)
     }   
 })
-
 
 // Search
 searchString.addEventListener('change', (detail) =>{
@@ -54,7 +59,35 @@ searchString.addEventListener('change', (detail) =>{
     uiMaker(readable)
 })
 
+// (Create) Add
+btn.addEventListener('click', (detail) =>{
+    let obj =   {
+        id : add.value,
+        title : title.value,
+        body : body.value
+    }
 
+    readable.map(data =>{
+        if(data.id >= add.value){
+            data.id = data.id + 1
+        }
+    })
+
+    readable.splice(add.value - 1, 0, obj);
+    cardcontainer.innerHTML = '';
+    uiMaker(readable)
+})
+
+
+// 7be310716552aebb333902bfd1dc2afa
+
+// https:api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
+
+// let key = 'https:api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}';
+// let cityName = 'Satna' ;
+// fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=7be310716552aebb333902bfd1dc2afa`)
+// .then(dtaa => dtaa.json())
+// .then(res => console.log( " :: res ::" , res))
 
 //function fn(a,b){} //a,b => parameters
 //fn(4,5) // 4,5 => arguments
