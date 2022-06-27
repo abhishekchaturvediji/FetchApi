@@ -79,13 +79,13 @@ btn.addEventListener('click', (detail) =>{
 })
 
 
-// 7be310716552aebb333902bfd1dc2afa
+
 
 // https:api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
 
 // let key = 'https:api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}';
 // let cityName = 'Satna' ;
-// fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=7be310716552aebb333902bfd1dc2afa`)
+// fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=`)
 // .then(dtaa => dtaa.json())
 // .then(res => console.log( " :: res ::" , res))
 
